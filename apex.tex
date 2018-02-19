@@ -14,7 +14,8 @@
 
 %\acmISBN{123-4567-24-567/08/06}
 
-\acmConference[ELS2018]{European Lisp Symposium}{April 2018}{Marbella, Spain}
+\acmConference[ELS2018]{European Lisp Symposium}{April 2018}{Marbella,
+  Spain}
 \acmYear{2018}
 \copyrightyear{2018}
 
@@ -27,7 +28,8 @@
 
 
 \begin{document}
-\title{A perspective of Common Lisp, the UNIX Virtual File System, and streams programming}
+\title{A perspective of Common Lisp, the UNIX Virtual File System, and
+  streams programming}
 %\titlenote{}
 %\subtitle{}
 %\subtitlenote{}
@@ -48,61 +50,59 @@
 
 \begin{abstract}
   This paper gives a few perspectives on Common Lisp and UNIX,
-  particularly the Virtual File System with comparisons with HTTP REST,
-  and streams programming. These paradigms have been pervasive across
-  computer systems for a few decades now and following is a review of
-  how the Common Lisp family of languages allow to describe and engineer
-  these computing paradigms. They are of prime importance in that they
-  give social insight on i/o by privileging hierarchical data addressing
-  which remains human readable as much as possible. Reviews of the
-  Common Lisp programming and system implementation interfaces for
-  hierarchical file naming systems and stream programming, comparisons
-  with HTTP REST, the UNIX VFS, and Erlang. These are the paradigms that
-  would most likely be needed to make Common Lisp relevant in the
-  striving open-source computing industry that is moving on to express
-  the world wide web services using PHP, SQL, Java, Ruby and Javascript
-  instead.
+  particularly the Virtual File System with comparisons with HTTP
+  REST, and streams programming. These paradigms have been pervasive
+  across computer systems for a few decades now and following is a
+  review of how the Common Lisp family of languages allows to describe
+  and engineer these computing paradigms. They are of prime importance
+  in that they give social insight on i/o by privileging hierarchical
+  data addressing which remains human readable as much as
+  possible. Reviews of the Common Lisp programming and system
+  implementation interfaces for hierarchical file naming systems and
+  stream programming, comparisons with HTTP REST, the UNIX VFS, and
+  Erlang. These are the paradigms that would most likely be needed to
+  make Common Lisp relevant in the striving open-source computing
+  industry that is moving on to express the world wide web services
+  using PHP, SQL, Java, Ruby and Javascript instead.
 \end{abstract}
 
 
 \begin{CCSXML}
-<ccs2012>
-<concept>
-<concept_id>10011007.10011074.10011075.10011077</concept_id>
-<concept_desc>Software and its engineering~Software design engineering</concept_desc>
-<concept_significance>500</concept_significance>
-</concept>
-<concept>
-<concept_id>10011007.10011006.10011050.10011051</concept_id>
-<concept_desc>Software and its engineering~API languages</concept_desc>
-<concept_significance>300</concept_significance>
-</concept>
-<concept>
-<concept_id>10010147.10010919.10010177</concept_id>
-<concept_desc>Computing methodologies~Distributed programming languages</concept_desc>
-<concept_significance>300</concept_significance>
-</concept>
-<concept>
-<concept_id>10002944.10011123.10011673</concept_id>
-<concept_desc>General and reference~Design</concept_desc>
-<concept_significance>100</concept_significance>
-</concept>
-<concept>
-<concept_id>10003120.10003121.10003124.10010870</concept_id>
-<concept_desc>Human-centered computing~Natural language interfaces</concept_desc>
-<concept_significance>100</concept_significance>
-</concept>
-</ccs2012>
+  <ccs2012> <concept>
+  <concept_id>10011007.10011074.10011075.10011077</concept_id>
+  <concept_desc>Software and its engineering~Software design
+  engineering</concept_desc>
+  <concept_significance>500</concept_significance> </concept>
+  <concept>
+  <concept_id>10011007.10011006.10011050.10011051</concept_id>
+  <concept_desc>Software and its engineering~API
+  languages</concept_desc>
+  <concept_significance>300</concept_significance> </concept>
+  <concept> <concept_id>10010147.10010919.10010177</concept_id>
+  <concept_desc>Computing methodologies~Distributed programming
+  languages</concept_desc>
+  <concept_significance>300</concept_significance> </concept>
+  <concept> <concept_id>10002944.10011123.10011673</concept_id>
+  <concept_desc>General and reference~Design</concept_desc>
+  <concept_significance>100</concept_significance> </concept>
+  <concept>
+  <concept_id>10003120.10003121.10003124.10010870</concept_id>
+  <concept_desc>Human-centered computing~Natural language
+  interfaces</concept_desc>
+  <concept_significance>100</concept_significance> </concept>
+  </ccs2012>
 \end{CCSXML}
 
-\ccsdesc[500]{Software and its engineering~Software design engineering}
-\ccsdesc[300]{Software and its engineering~API languages}
-\ccsdesc[300]{Computing methodologies~Distributed programming languages}
-\ccsdesc[100]{General and reference~Design}
+\ccsdesc[500]{Software and its engineering~Software design
+  engineering} \ccsdesc[300]{Software and its engineering~API
+  languages} \ccsdesc[300]{Computing methodologies~Distributed
+  programming languages} \ccsdesc[100]{General and reference~Design}
 \ccsdesc[100]{Human-centered computing~Natural language interfaces}
 
 
-\keywords{European Lisp Symposium 2018, Common Lisp, UNIX, Hierarchical File Naming Systems, Virtual File Systems, Streams Programming}
+\keywords{European Lisp Symposium 2018, Common Lisp, UNIX,
+  Hierarchical File Naming Systems, Virtual File Systems, Streams
+  Programming}
 
 
 \maketitle
@@ -110,13 +110,39 @@
 
 \section{The UNIX shell and Virtual File System is an acceptable Lisp}
 
-It's true.
+That really is a feeling you get when comming from UNIX and discovering
+Common Lisp, that the shell is some kind of low power Lisp. Indeed you
+get lists as commands and you need to understand the importance of
+quoting things -- interestingly enough there is no QUOTE operator it
+is left to be done, often miserably, by the programmer. There is an eval
+and you can generate shell scripts using shell commands and send them
+to a subshell or pipe them to another shell. So code is data too.
+Lists of space separated tokens with special syntax for variable
+substitution. The evaluation is mostly command and variable
+substitutions on space separated tokens in character streams.
+Portability is maximal with all UNIX platforms supported including
+Linux and MacOS, on other platforms installation of /bin/sh for
+target platform and a few binaries is all you need to do shell
+programming.
+
+When you shell script archology is ready you know if it might be useful.
+You then just take you small shell scripts one by one and rewrite
+them in an actual programming language with a native compiler. So it's
+used for rapid prototyping like Lisp languages before a industry
+approved solution can come into place.
+
+Where Common Lisp might stand as a valid replacement or complement of
+C is that it allows for both rapid prototyping and portable, native,
+compiled code. The only limitation then is perception by the industry
+regarding Common Lisp as a widely known and widespread and usable
+programming language easy to work with, which is not really the case
+arguably.
 
 \subsection{An interface to UNIX APIs in Common Lisp : CFFI-POSIX}
 
 Package nicknames in CFFI-POSIX provide UNIX interface names for
 standard programming following POSIX specifications. For instance the
-CFFI-UNISTD:\ldots package name gives both implementation details as
+CFFI-UNISTD package name gives both implementation details as
 CFFI which is a widely available and portable C application binary
 interface dynamic linker for Common Lisp, and a POSIX standards
 interface name : UNISTD. The package nickname UNISTD only describes
@@ -126,61 +152,292 @@ implementation without changing anything to the source code other than
 the system definition files.
 
 
-\section{How and why is a Hierarchical File Naming System part of a computer operating system}
+\section{How and why is a Hierarchical File Naming System part of a
+  computer operating system}
 
 \subsection{Early learning bias}
-Hierarchical file naming systems are almost always very early on produced to students and users of computer systems without their prior knowledge of it as a necessary interface to persisting data on these systems. So the concepts of hierarchical naming systems are tightly linked to persistent on-disk storage and almost identified with the computer hard drive subsystem very early on. The hard drive subsystem is one of the slower parts of almost all computer systems so the bias might have had a negative impact on the development of hierarchical naming systems as being a essential part of how we describe and represent structured data as graph cuts for instance when considering moving, renaming, or processing (mapping) a partial subtree of a filesystem.
+Hierarchical file naming systems are almost always very early on
+produced to students and users of computer systems without their prior
+knowledge of it as a necessary interface to persisting data on these
+systems. So the concepts of hierarchical naming systems are tightly
+linked to persistent on-disk storage and almost identified with the
+computer hard drive subsystem very early on. The hard drive subsystem
+is one of the slower parts of almost all computer systems so the bias
+might have had a negative impact on the development of hierarchical
+naming systems as being an essential part of how we describe and
+represent structured data as graph cuts for instance when considering
+moving, renaming, or processing (mapping) a partial subtree of a
+filesystem.
 
-\subsubsection{System implementation versus applicated programming interfaces}
-As always, APIs (application programming interfaces) are heavily biased towards concurrency of applications and against concurrency of systems implementation. This is proeminent in Common Lisp for the pathname and stream programming interfaces. Most implementations have found consensus beyond the ANSI Common Lisp language specification with ``gray streams'' and ``simple streams''.
+\subsubsection{System implementation versus applicated programming
+  interfaces}
+As always, APIs (application programming interfaces) are heavily
+biased towards concurrency of applications and against concurrency of
+systems implementation. This is proeminent in Common Lisp for the
+pathname and stream programming interfaces. Most implementations have
+found consensus beyond the ANSI Common Lisp language specification
+with ``gray streams'' and ``simple streams''.
 
-This bias is somewhat reduced once the concerned subsystem is expressed in terms of itself. However the hierarchical naming system seems to dull and simple to express itself in terms of itself. However one could also say that UNIX succeeded in this by providing its own VFS program code under the very same filesystem in the kernel, so it is bundled along with many other powerful abstraction. All UNIX kernel hacking and filesystem hacking is mainly through a filesystem demonstrating that large amount of data can be gathered, categorized and sorted using a virtual file system to the complexity that the filesystem necessary features can be unambiguously expressed in the filesystem itself by containing the program code and compiler system for that code.
+This bias is somewhat reduced once the concerned subsystem is
+expressed in terms of itself. However the hierarchical naming system
+seems too dull and simple to express itself in terms of itself. However
+one could also say that UNIX succeeded in this by providing its own
+VFS program code under the very same filesystem in the kernel, so it
+is bundled along with many other powerful abstraction. All UNIX kernel
+hacking and filesystem hacking is mainly through a filesystem
+demonstrating that large amount of data can be gathered, categorized
+and sorted using a virtual file system to the complexity that the
+filesystem necessary features can be unambiguously expressed in the
+filesystem itself by containing the program code and compiler system
+for that code.
 
-Hence the architecture dependent files could only concern the compiler system. Hierarchical file naming systems and filesystem concepts are perfectly orthogonal to computing and data processing architecture, but also allows their representation along with the filesystem itself using the filesystem.
+Hence the architecture dependent files could only concern the compiler
+system. Hierarchical file naming systems and filesystem concepts are
+perfectly orthogonal to computing and data processing architecture,
+but also allows their representation along with the filesystem itself
+using the filesystem.
 
-We argument that usage of hierarchical naming system could definitely improve the interaction surface of many System and Application programming interfaces with code editors and software engineers or any entity operating on symbolic graph cuts (able to do structured I/O).
+We argument that usage of hierarchical naming system could definitely
+improve the interaction surface of many System and Application
+programming interfaces with code editors and software engineers or any
+entity operating on symbolic graph cuts (able to do structured I/O).
 
 
-\subsection{A proposed interface for generic and compatible stream programming in Common Lisp : CL-STREAM}
+\subsection{A proposed interface for generic and compatible stream
+  programming in Common Lisp : CL-STREAM}
 
-CL-STREAM streams are fully compatible with Common Lisp, but does shadow most stream related symbols from Common Lisp and redefines stream primitives constructively as interfaces for both implementor of stream facilities and application programmers using these streams.
+CL-STREAM streams are fully compatible with Common Lisp, but does
+shadow most stream related symbols from Common Lisp and redefines
+stream primitives constructively as interfaces for both implementor of
+stream facilities and application programmers using these streams.
+
 
 \section{Multi-agent systems and stream programming}
 
-It would seem that almost all simple computing systems can be effectively made scalable on multi-processing and networked architectures by replacing list and vector operations by stream operations. This allows specialization and asynchronous organisation of processes, auditing, redundancy, auditing, testing and persisting parts of the intermediate data streams, so it is also important for finer consistency and reproducibility assesments of a data processing system.
+It would seem that almost all simple computing systems can be
+effectively made scalable on multi-processing and networked
+architectures by replacing list and vector operations by stream
+operations. This allows specialization and asynchronous organisation
+of processes, auditing, redundancy, auditing, testing and persisting
+parts of the intermediate data streams, so it is also important for
+finer consistency and reproducibility assesments of a data processing
+system.
 
-It follows that success of large scale computer system deployments is heavily correlated to ability of these systems to rapidly prototype data processing and then transform them to simple functional components operating on data streams. The more UNIX and the WWW progress, the more we see demand for high speed event driven asynchronous input/output.
+It follows that success of large scale computer system deployments is
+heavily correlated to ability of these systems to rapidly prototype
+data processing and then transform them to simple functional
+components operating on data streams. The more UNIX and the WWW
+progress, the more we see demand for high speed event driven
+asynchronous input/output.
 
-Here we review the most commonly deployed systems for multi-agent and stream programming, namely UNIX and Erlang. These systems readily expose scalability, parallelization, and distributivity as a direct consequence of the interfaces they implement and provide to their users. Next we see how these paradigms can be expressed and engineered in Common Lisp, eventually overriding Common Lisp stream functions and classes as being too limited for expressing the full potential of streams programming.
+Here we review the most commonly deployed systems for multi-agent and
+stream programming, namely UNIX and Erlang. These systems readily
+expose scalability, parallelization, and distributivity as a direct
+consequence of the interfaces they implement and provide to their
+users. Next we see how these paradigms can be expressed and engineered
+in Common Lisp, eventually overriding Common Lisp stream functions and
+classes as being too limited for expressing the full potential of
+streams programming.
 
 \subsection{UNIX and C, a structured data streams interface}
-UNIX only has binary streams but C providing casts between data buffers and structured data one could say C/UNIX has structured data streams available directly from the unistd facility and which is widely used through stdio and sockets. These programming interface are still widely in use and usually forwarded in some way by programming languages implemented on these systems.
+UNIX only has binary streams but with C providing casts between data
+buffers and structured data, one could say C/UNIX has structured data
+streams available directly from the unistd facility and which is
+widely used through stdio and sockets. These programming interface are
+still widely in use and usually forwarded in some way by programming
+languages implemented on these systems.
 
-The following constitute a proposed solution for Common Lisp to stay on par with most modern operating system facilities to support structured data and evented asynchronous i/o operations on multiple streams simultaneously.
-
-\subsubsection{Non-blocking streams programming in C/UNIX}
-Most high throughput high concurrency data processing systems use unistd streams or sockets through extensions to address the limitations of POSIX regarding operation of many open file descriptors, namely {\em epoll} for Linux and {\em k-queues} for BSD systems. Good examples of their use are found in recent HTTP servers.
+The following constitute a proposed solution for Common Lisp to stay
+on par with most modern operating system facilities to support
+structured data and evented asynchronous i/o operations on multiple
+streams simultaneously.
 
 \subsubsection{CFFI-POSIX}
-Bypassing the need for an update to the language specification and compiler library, CFFI allows accessing these very fast non-blocking i/o interfaces from within Common Lisp programs. We present CFFI-POSIX as a project to maintain a collection of interface to POSIX standards by the means of CFFI to target all Common Lisp implementations that are supported by CFFI.
+Bypassing the need for an update to the language specification and
+compiler library, CFFI allows accessing these very fast non-blocking
+i/o interfaces from within Common Lisp programs. We present CFFI-POSIX
+as a project to maintain a collection of interface to POSIX standards
+by the means of CFFI to target all Common Lisp implementations that
+are supported by CFFI.
 
 http://github.com/cffi-posix/
 
-\subsubsection{CL-STREAM}
-However we found that the Common Lisp stream programming interfaces were not sufficient to express non-blocking and buffered i/o that these CFFI interfaces provide. To address this limitation we developped CL-STREAM as a mean to describe stream interfaces equally to application programmers using these interfaces and to systems implementors writing new way to use or implement these stream interfaces for non-blocking i/o but also for generic stream programming in Common Lisp, giving way to all kind of very fast multi-agent event-driven programming paradigms as a real industry solution directly in Common Lisp and available in open-source form. Take it as a standing platform to discuss and describe about all possible kinds of streams and stream operations in Common Lisp. A practical minimalistic ontology using CLOS, by all means.
+\paragraph{CFFI-UNISTD}
+provides the standard POSIX UNISTD (ref) interface using the
+portable Common Lisp C Foreign Function Interface : CFFI (ref). Included
+are direct access to C- functions and Common Lisp wrappers to handle
+errors correctly, mostly using CFFI-ERRNO.
 
-http://github.com/cl-stream/
+http://github.com/cffi-posix/cffi-unistd/
+
+\paragraph{CFFI-FCNTL}
+likewise with POSIX FCNTL (ref) interface.
+
+http://github.com/cffi-posix/cffi-fcntl/
+
+\paragraph{CFFI-DIRENT}
+likewise with POSIX DIRENT (ref) interface.
+
+http://github.com/cffi-posix/cffi-dirent/
+
+\paragraph{CFFI-SOCKET}
+likewise with BSD sockets (ref) interface.
+
+http://github.com/cffi-posix/cffi-socket/
+
+\paragraph{CFFI-ERRNO}
+wrappers for POSIX ERRNO (ref) functions.
+
+http://github.com/cffi-posix/cffi-errno/
+
+
+\subsubsection{Non-blocking streams programming in C/UNIX}
+Most high throughput high concurrency data processing systems use
+unistd streams or sockets through extensions to address the
+limitations of POSIX regarding operation of many open file
+descriptors, namely {\em epoll} for Linux and {\em k-queues} for BSD
+systems. Good examples of their use are found in recent HTTP servers.
+
+\paragraph{CFFI-EPOLL}
+For now only Linux event driven asychronous i/o is supported through the
+CFFI-EPOLL package implementing the Linux EPOLL interface.
+
+http://github.com/cffi-posix/cffi-epoll/
+
+\paragraph{THOT}
+We know of one webserver that was developped using CFFI-EPOLL and
+CFFI-SOCKET to support more than 10k concurrent HTTP connections
+on Linux systems : THOT.
+
+http://github.com/RailsOnLisp/thot/
+
+
+\subsubsection{CL-STREAM}
+However we found that the Common Lisp stream programming interfaces
+were not sufficient to express non-blocking and buffered i/o that
+these CFFI interfaces provide. To address this limitation we
+developped CL-STREAM as a mean to describe stream interfaces equally
+to application programmers using these interfaces and to systems
+implementors writing new way to use or implement these stream
+interfaces for non-blocking i/o but also for generic stream
+programming in Common Lisp, giving way to all kind of very fast
+multi-agent event-driven programming paradigms as a real industry
+solution directly in Common Lisp and available in open-source
+form. Take it as a standing platform to discuss and describe about all
+possible kinds of streams and stream operations in Common Lisp. A
+practical minimalistic ontology using CLOS, by all means.
+
+http://github.com/cl-stream/cl-stream/
+
+The CL-STREAM stream interface will accept operations on Common Lisp
+streams but do not support non-blocking operations. For those other
+implementations have to be devised or found, which is made practical
+with the STREAM- generic functions to implement a hierarchy of class
+with different stream class traits.
+
+Class hierarchy differenciates between :
+
+\paragraph{streams}
+\subparagraph{CLOSE}
+when a stream is closed all further i/o operations are prevented from
+happening.
+
+\paragraph{input streams}
+\subparagraph{READ}
+reads one element of type (STREAM-ELEMENT-TYPE stream) from stream or
+(STDIN). Return values indicate success, end of file or non-blocking
+status.
+\subparagraph{STREAM-READ}
+
+\paragraph{buffered input streams}
+\subparagraph{MAKE-STREAM-INPUT-BUFFER}
+\subparagraph{DISCARD-STREAM-INPUT-BUFFER}
+\subparagraph{STREAM-INPUT-BUFFER}
+\subparagraph{SETF STREAM-INPUT-BUFFER}
+\subparagraph{STREAM-FILL-INPUT-BUFFER}
+\subparagraph{STREAM-READ-ELEMENT-FROM-BUFFER}
+
+\paragraph{output streams}
+\subparagraph{WRITE}
+\subparagraph{STREAM-WRITE}
+
+\paragraph{buffered output streams}
+\subparagraph{MAKE-STREAM-OUTPUT-BUFFER}
+\subparagraph{CLEAR-OUTPUT}
+\subparagraph{STREAM-CLEAR-OUTPUT}
+\subparagraph{FINISH-OUTPUT}
+\subparagraph{STREAM-FINISH-OUTPUT}
+\subparagraph{FLUSH-OUTPUT}
+\subparagraph{STREAM-FLUSH-OUTPUT}
+\subparagraph{STREAM-OUTPUT-BUFFER}
+\subparagraph{SETF STREAM-OUTPUT-BUFFER}
+\subparagraph{STREAM-WRITE-ELEMENT-TO-BUFFER}
+~\\
+
+This allows fine grained separation of code in packages that each
+introduce a minimal number of other systems as dependency requirements.
+
+
+\subsubsection{UNISTD-STREAM}
+UNISTD-STREAM implements the CL-STREAM interface using the UNISTD
+interface as provided by CFFI-UNISTD.
+
+http://github.com/cl-stream/unistd-stream/
+
+\subsubsection{BABEL-STREAM}
+BABEL-STREAM provides a CL-STREAM interface to support charset encoding
+and decoding to make a character stream out of an underlying binary
+stream and inversely make a binary stream out of an underlying character
+stream. The encoding can be changed on the fly, and the underlying
+stream can be read and written too.
+
+http://github.com/cl-stream/babel-stream/
+
+\subsubsection{UNISTD-STDIO}
+A replacement for Common Lisp *STANDARD-INPUT*, *STANDARD-OUTPUT*
+and *STANDARD-ERROR* using UNISTD-STREAM. Not in working status as of
+the writing date of this paper.
+
+http://github.com/cl-stream/babel-stream/
 
 \subsection{Erlang}
-
-All Erlang programs are structured into processes that accept and send structured data as messages to other processes. So most of the programming is done by accepting and processing messages sent by other processes and by sending messages to other processes. Processes can be pooled, supervised, replicated, distributed across physical hardware live while the rest of the system keeps running. Structured data streams, but they call them message queues in Erlang, help programming multi-agent systems by providing a universal way for os or virtual machine threads to communicate efficiently.
+All Erlang programs are structured into processes that accept and send
+structured data as messages to other processes. So most of the
+programming is done by accepting and processing messages sent by other
+processes and by sending messages to other processes. Processes can be
+pooled, supervised, replicated, distributed across physical hardware
+live while the rest of the system keeps running. Structured data
+streams, but they call them message queues in Erlang, help programming
+multi-agent systems by providing a universal way for os or virtual
+machine threads to communicate efficiently.
 
 \subsection{Common Lisp : a minimalistic pathname and streams API}
-How does Common Lisp cope beyond specification regarding description and engineering of hierarchical naming systems and streams programming ?
+How does Common Lisp cope beyond specification regarding description
+and engineering of hierarchical naming systems and streams programming
+?
 
-The main problem is that Common Lisp streams are used to produce the Common Lisp system, but it is the only implementor of Common Lisp streams. On modern systems these are actually implemented using the underlying operating system streams so they inherit the limitations of the operating system as well as the limitations of Common Lisp streams. Modern Common Lisp compilers rarely implement Common Lisp streams in terms of disk I/O and B-tree copy-on-write self balancing low-level data layers, but rather in terms of kernel syscalls that implement and persist our human understanding of them through C kernel code.
+The main problem is that Common Lisp streams are used to produce the
+Common Lisp system, but it is the only implementor of Common Lisp
+streams. On modern systems these are actually implemented using the
+underlying operating system streams so they inherit the limitations of
+the operating system as well as the limitations of Common Lisp
+streams. Modern Common Lisp compilers rarely implement Common Lisp
+streams in terms of disk I/O and B-tree copy-on-write self balancing
+low-level data layers, but rather in terms of kernel syscalls that
+implement and persist our human understanding of them through C kernel
+code.
 
-So across most Common Lisp implementations the programmer ends up actually using a maimed and complexified (improved) interface to the underlying operating system streams. But even with complexification they would have a hard time subclassing and re-implementing correctly asynchonous operations with just STREAM-READ-CHAR-NO-HANG as being the only non-blocking redefinable operation and that is only if the implementation supports Gray streams. So as a language specification it really gets in the way of both application programmer and system programmers. Much more than C, which could explain the difference in adoption rate of these systems to a certain extent, I would say not zero for sure.
+So across most Common Lisp implementations the programmer ends up
+actually using a maimed and of greater complexity (improved) interface
+to the underlying operating system streams. But even with additional
+complexity they would have a hard time subclassing and re-implementing
+correctly asynchronous operations with just STREAM-READ-CHAR-NO-HANG
+as being the only non-blocking operation you can re-define and that is
+only if the implementation supports Gray streams. So as a language
+specification it really gets in the way of both application programmer
+and stream system programmers. Much more than C, which could explain
+the difference in adoption rate of these systems to a certain extent,
+I would say not zero for sure for anyone except very advanced users.
 
 
 \
@@ -188,3 +445,20 @@ So across most Common Lisp implementations the programmer ends up actually using
 \bibliography{}
 
 \end{document}
+
+
+
+
+
+- path for newbs ?
+
+- common lisp paper but UNIX heart and soul
+  likewise, lisp compiler but UNIX streams
+
+- contexte, raisonnement,
+
+- attractive
+
+- technical points
+cl-stream
+cffi-posix
