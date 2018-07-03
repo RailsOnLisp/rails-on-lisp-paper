@@ -1,0 +1,71 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=latex 2018.1.16)  13 FEB 2018 19:17
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**trimspaces.tex
+(./trimspaces.tex
+LaTeX2e <2016/03/31> patch level 3
+Babel <3.9r> and hyphenation patterns for 3 language(s) loaded.
+(./filecontents.sty
+Package: filecontents 2011/10/08 v1.3 Create an external file from within a LaT
+eX document
+)
+
+LaTeX Warning: Overwriting file `./README.txt'.
+
+\openout15 = `README.txt'.
+
+
+
+LaTeX Warning: Overwriting file `./trimspaces.sty'.
+
+\openout15 = `trimspaces.sty'.
+
+
+
+LaTeX Warning: Overwriting file `./trimspaces.ins'.
+
+\openout15 = `trimspaces.ins'.
+
+
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+
+! LaTeX Error: File `titlesec.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.96 \usepackage
+                {xcolor}^^M
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 210 strings out of 494946
+ 2260 string characters out of 6181471
+ 47813 words of memory out of 5000000
+ 3590 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 23i,0n,17p,150b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.
